@@ -15,7 +15,7 @@ const oldPointStructure = {
 function oldScrabbleScorer(word) {
 	word = word.toUpperCase();
 	let letterPoints = "";
- 
+  
 	for (let i = 0; i < word.length; i++) {
  
 	  for (const pointValue in oldPointStructure) {
@@ -26,6 +26,7 @@ function oldScrabbleScorer(word) {
  
 	  }
 	}
+  console.log(letterPoints);
 	return letterPoints;
  }
 
@@ -33,12 +34,31 @@ function oldScrabbleScorer(word) {
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   console.log("Let's play some scrabble! Enter a word:");
+   let word = input.question(`Let's play some scrabble!\n\nEnter a word to score: ` );
+   return oldScrabbleScorer(word);
 };
 
-let simpleScore;
+// Define a function that takes a word as a parameter and returns a numerical score. Each letter within the word is worth 1 point:
+let simpleScore = function(word) {
+  let score = 0;
+  for (let i = 0; i < word.length; i++) {
+    score += 1;
+  }
+  return score;
+};
 
-let vowelBonusScore;
+//Define a function that takes a word as a parameter and returns a score. Each vowel within the word is worth 3 points, and each consonant is worth 1 point.:
+let vowelBonusScore = function(word) {
+  let score = 0;
+  for (let i = 0; i < word.length; i++) {
+    if ((word[i] === 'a') || (word[i] === 'e') || (word[i] === 'i') || (word[i] === 'o') || (word[i] === 'u')) {
+      score += 3;
+    } else {
+      score += 1;
+    }
+  }
+  return score;  
+};
 
 let scrabbleScore;
 
