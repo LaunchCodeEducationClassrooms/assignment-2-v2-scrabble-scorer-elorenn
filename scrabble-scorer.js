@@ -70,7 +70,7 @@ let scrabbleScore = function(word) {
   for (let i = 0; i < word.length; i++) {
     for (letter in newPointStructure) {
       if (letter === word[i]) {
-        score += Number(newPointStructure[letter]);
+        score += newPointStructure[letter];
       }
     }
   }
@@ -111,7 +111,7 @@ function transform(oldObject) {
   let newObject = {};
   for (key in oldObject) {
     for (i = 0; i < oldObject[key].length; i++) {
-      newObject[(oldObject[key][i]).toLowerCase()] = key;
+      newObject[(oldObject[key][i]).toLowerCase()] = Number(key);
     }
   }
   return newObject;
