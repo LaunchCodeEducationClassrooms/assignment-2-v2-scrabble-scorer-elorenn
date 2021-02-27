@@ -34,12 +34,14 @@ function oldScrabbleScorer(word) {
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   let word = input.question(`Let's play some scrabble!\n\nEnter a word to score: ` );
-   return oldScrabbleScorer(word);
+  let word = input.question(`Let's play some scrabble!\n\nEnter a word to score: ` );
+  // return oldScrabbleScorer(word);
+  return word;
 };
 
 // Define a function that takes a word as a parameter and returns a numerical score. Each letter within the word is worth 1 point:
 let simpleScore = function(word) {
+  word.toUpperCase();
   let score = 0;
   for (let i = 0; i < word.length; i++) {
     score += 1;
@@ -47,8 +49,10 @@ let simpleScore = function(word) {
   return score;
 };
 
+
 //Define a function that takes a word as a parameter and returns a score. Each vowel within the word is worth 3 points, and each consonant is worth 1 point.:
 let vowelBonusScore = function(word) {
+  word.toUpperCase();
   let score = 0;
   for (let i = 0; i < word.length; i++) {
     if ((word[i] === 'a') || (word[i] === 'e') || (word[i] === 'i') || (word[i] === 'o') || (word[i] === 'u')) {
@@ -62,18 +66,45 @@ let vowelBonusScore = function(word) {
 
 let scrabbleScore;
 
-const scoringAlgorithms = [];
 
-function scorerPrompt() {}
+//scoringAlgorithms Array should be populated with three objects, one for each of the three scoring options. Each object should contain three keys: name, description, and scorerFunction:
+
+let simpleScoreObject = {
+  name: 'Simple Score',
+  description: 'Each letter is worth 1 point.',
+  scorerFunction: simpleScore
+};
+
+let vowelScoreObject = {
+  name: 'Bonus Vowels',
+  description: 'Vowels are 3 pts, consonants are 1 pt.',
+  scorerFunction: vowelBonusScore
+}; 
+
+let scrabbleScoreObject = {
+  name: 'Scrabble',
+  description: 'The traditional scoring algorithm.',
+  scorerFunction: oldScrabbleScorer
+};
+
+const scoringAlgorithms = [simpleScoreObject, vowelScoreObject, scrabbleScoreObject];
+
+//should return the object the user has selected:
+function scorerPrompt() {
+  let scorerIndex = input.question(`Which scoring algorithm would you like to use?\n\n0 - Simple: One point per character\n1 - Vowel Bonus: Vowels are worth 3 points\n2 - Scrabble: Uses scrabble point system\n\nEnter 0, 1, or 2: `);
+  return scoringAlgorithms[scorerIndex];
+}
 
 function transform() {};
 
 let newPointStructure;
 
 function runProgram() {
-   initialPrompt();
-   
+  let word = initialPrompt();
+  let scorer = scorerPrompt(); 
+  console.log(`Score for '${word}': ${scorer.scorerFunction(word)}`);
 }
+
 
 // Don't write any code below this line //
 // And don't change these or your program will not run as expected //
