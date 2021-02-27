@@ -120,6 +120,8 @@ function transform(oldObject) {
 //create a newPointStructure object that has 26 keys, one for each letter. The value of each key will be the Scrabble point value:
 let newPointStructure = transform(oldPointStructure);
 
+newPointStructure[' '] = 0;
+
 function runProgram() {
   let word = initialPrompt();
   let scorer = scorerPrompt(); 
