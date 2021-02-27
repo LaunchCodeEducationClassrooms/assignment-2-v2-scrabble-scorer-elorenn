@@ -20,9 +20,9 @@ function oldScrabbleScorer(word) {
  
 	  for (const pointValue in oldPointStructure) {
  
-		 if (oldPointStructure[pointValue].includes(word[i])) {
-			letterPoints += `Points for '${word[i]}': ${pointValue}\n`
-		 }
+      if (oldPointStructure[pointValue].includes(word[i])) {
+        letterPoints += `Points for '${word[i]}': ${pointValue}\n`
+      }
  
 	  }
 	}
@@ -64,7 +64,18 @@ let vowelBonusScore = function(word) {
   return score;  
 };
 
-let scrabbleScore;
+let scrabbleScore = function(word) {
+  word = word.toLowerCase();
+  let score = 0;
+  for (let i = 0; i < word.length; i++) {
+    for (letter in newPointStructure) {
+      if (letter === word[i]) {
+        score += Number(newPointStructure[letter]);
+      }
+    }
+  }
+  return score;
+};
 
 
 //scoringAlgorithms Array should be populated with three objects, one for each of the three scoring options. Each object should contain three keys: name, description, and scorerFunction:
@@ -83,8 +94,8 @@ let vowelScoreObject = {
 
 let scrabbleScoreObject = {
   name: 'Scrabble',
-  description: 'The traditional scoring algorithm.',
-  scorerFunction: oldScrabbleScorer
+  description: 'Uses scrabble point system.',
+  scorerFunction: scrabbleScore
 };
 
 const scoringAlgorithms = [simpleScoreObject, vowelScoreObject, scrabbleScoreObject];
@@ -103,9 +114,8 @@ function transform(oldObject) {
       newObject[(oldObject[key][i]).toLowerCase()] = key;
     }
   }
+  return newObject;
 };
-
-transform(oldPointStructure);
 
 //create a newPointStructure object that has 26 keys, one for each letter. The value of each key will be the Scrabble point value:
 let newPointStructure = transform(oldPointStructure);
