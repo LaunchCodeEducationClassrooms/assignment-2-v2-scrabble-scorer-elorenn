@@ -95,37 +95,21 @@ function scorerPrompt() {
   return scoringAlgorithms[scorerIndex];
 }
 
-function transform() {};
+//Calling transform(oldPointStructure) will return an object with lowercase letters as keys. The value for each key will be the points assigned to that letter. oldPointStructure['key']
+function transform(oldObject) {
+  let newObject = {};
+  for (key in oldObject) {
+    for (i = 0; i < oldObject[key].length; i++) {
+      newObject[(oldObject[key][i]).toLowerCase()] = key;
+    }
+  }
+  console.log(newObject);
+};
+
+transform(oldPointStructure);
 
 //create a newPointStructure object that has 26 keys, one for each letter. The value of each key will be the Scrabble point value:
-let newPointStructure = {
-  'A':[1],
-  'B':[3],
-  'C':[3],
-  'D':[2],
-  'E':[1],
-  'F':[4],
-  'G':[2],
-  'H':[4],
-  'I':[1],
-  'J':[8],
-  'K':[5],
-  'L':[1],
-  'M':[3],
-  'N':[1],
-  'O':[1],
-  'P':[3],
-  'Q':[10],
-  'R':[1],
-  'S':[1],
-  'T':[1],
-  'U':[1],
-  'V':[4],
-  'W':[4],
-  'X':[8],
-  'Y':[4],
-  'Z':[10]
-};
+let newPointStructure;
 
 function runProgram() {
   let word = initialPrompt();
