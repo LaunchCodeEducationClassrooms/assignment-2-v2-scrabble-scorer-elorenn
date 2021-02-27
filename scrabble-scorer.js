@@ -78,24 +78,24 @@ let scrabbleScore = function(word) {
 };
 
 
-//scoringAlgorithms Array should be populated with three objects, one for each of the three scoring options. Each object should contain three keys: name, description, and scorerFunction:
+//scoringAlgorithms Array should be populated with three objects, one for each of the three scoring options. Each object should contain three keys: name, description, and scorerFunction (scoringFunction):
 
 let simpleScoreObject = {
   name: 'Simple Score',
   description: 'Each letter is worth 1 point.',
-  scorerFunction: simpleScore
+  scoringFunction: simpleScore
 };
 
 let vowelScoreObject = {
   name: 'Bonus Vowels',
   description: 'Vowels are 3 pts, consonants are 1 pt.',
-  scorerFunction: vowelBonusScore
+  scoringFunction: vowelBonusScore
 }; 
 
 let scrabbleScoreObject = {
   name: 'Scrabble',
   description: 'Uses scrabble point system.',
-  scorerFunction: scrabbleScore
+  scoringFunction: scrabbleScore
 };
 
 const scoringAlgorithms = [simpleScoreObject, vowelScoreObject, scrabbleScoreObject];
@@ -123,7 +123,7 @@ let newPointStructure = transform(oldPointStructure);
 function runProgram() {
   let word = initialPrompt();
   let scorer = scorerPrompt(); 
-  console.log(`Score for '${word}': ${scorer.scorerFunction(word)}`);
+  console.log(`Score for '${word}': ${scorer.scoringFunction(word)}`);
 }
 
 
