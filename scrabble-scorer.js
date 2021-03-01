@@ -33,9 +33,12 @@ function oldScrabbleScorer(word) {
 // your job is to finish writing these functions and variables that we've named //
 // don't change the names or your program won't work as expected. //
 
+//Modify your code to reject invalid inputs and then re-prompt the user for the correct information:
 function initialPrompt() {
-  let word = input.question(`Let's play some scrabble!\n\nEnter a word to score: ` );
-  // return oldScrabbleScorer(word);
+  let word = '';
+  while (!(word.match(/^[a-zA-Z]+$/))) {
+    word = input.question(`Let's play some scrabble!\n\nEnter a word to score: ` );
+  }
   return word;
 };
 
@@ -101,8 +104,12 @@ let scrabbleScoreObject = {
 const scoringAlgorithms = [simpleScoreObject, vowelScoreObject, scrabbleScoreObject];
 
 //should return the object the user has selected:
+//Modify your code to reject invalid inputs and then re-prompt the user for the correct information:
 function scorerPrompt() {
-  let scorerIndex = input.question(`Which scoring algorithm would you like to use?\n\n0 - Simple: One point per character\n1 - Vowel Bonus: Vowels are worth 3 points\n2 - Scrabble: Uses scrabble point system\n\nEnter 0, 1, or 2: `);
+  let scorerIndex;
+  while(!(scorerIndex == 0 || scorerIndex == 1 || scorerIndex == 2)) {
+    scorerIndex = input.question(`Which scoring algorithm would you like to use?\n\n0 - Simple: One point per character\n1 - Vowel Bonus: Vowels are worth 3 points\n2 - Scrabble: Uses scrabble point system\n\nEnter 0, 1, or 2: `);
+  }
   return scoringAlgorithms[scorerIndex];
 }
 
@@ -120,6 +127,7 @@ function transform(oldObject) {
 //create a newPointStructure object that has 26 keys, one for each letter. The value of each key will be the Scrabble point value:
 let newPointStructure = transform(oldPointStructure);
 
+//Score words spelled with blank tiles by adding ' ' to the newPointStructure object:
 newPointStructure[' '] = 0;
 
 function runProgram() {
@@ -128,6 +136,11 @@ function runProgram() {
   console.log(`Score for '${word}': ${scorer.scoringFunction(word)}`);
 }
 
+/* Bonus Missions:
+  1. Currently, the prompts accept ANY input values. The user could enter something other than 0, 1, or 2 when selecting the scoring algorithm, and they could enter numbers or symbols when asked for a word. Modify your code to reject invalid inputs and then re-prompt the user for the correct information.
+
+  2. Score words spelled with blank tiles by adding ' ' to the newPointStructure object. The point value for a blank tile is 0.
+*/
 
 // Don't write any code below this line //
 // And don't change these or your program will not run as expected //
